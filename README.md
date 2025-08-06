@@ -25,4 +25,4 @@ Building a GitHub Repository for Precision (Functional Mapping) Datasets: [Lit R
 
 ## Works Cited
 [^1]: Demeter, D.V., Greene, D.J. The promise of precision functional mapping for neuroimaging in psychiatry. Neuropsychopharmacol. 50, 16–28 (2025). https://doi.org/10.1038/s41386-024-01941-z
-[^2]: Gratton C, Kraus BT, Greene DJ, Gordon EM, Laumann TO, Nelson SM, Dosenbach NUF, Petersen SE. Defining Individual-Specific Functional Neuroanatomy for Precision Psychiatry. Biol Psychiatry. 2020 Jul 1;88(1):28-39. doi: 10.1016/j.biopsych.2019.10.026. Epub 2019 Nov 7. PMID: 31916942; PMCID: PMC7203002.
+[^2]: Gratton, C., Kraus, B. T., Greene, D. J., Gordon, E. M., Laumann, T. O., Nelson, S. M., Dosenbach, N. U. F., & Petersen, S. E. (2020). Defining Individual-Specific Functional Neuroanatomy for Precision Psychiatry. Biological psychiatry, 88(1), 28–39. https://doi.org/10.1016/j.biopsych.2019.10.026
