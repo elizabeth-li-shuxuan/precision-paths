@@ -1,5 +1,5 @@
 # **Precision Paths**
-## An Aggregated, Curated, & Itimized Collection of Open and Available Precision Functional Mapping (PFM) from Resting State fMRI Data
+## An Aggregated, Curated, & Itemized Collection of Open and Available Precision Functional Mapping (PFM) from Resting State fMRI Data
 
 ## What is PFM?
 We borrow our primary definition from previous work.
