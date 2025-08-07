@@ -169,9 +169,22 @@ st.subheader("Counts per Age Bin")
 st.bar_chart(counts)
 
 
+
 # ————— DISPLAY DATA CSV —————
 st.subheader("Data")
-st.dataframe(filtered.reset_index(drop=True))
+display_df = filtered.copy()
+
+#for display only, fill in empty cells with "Unknown"
+obj_cols = display_df.select_dtypes(include=["object", "string"]).columns
+if len(obj_cols)>0:
+    display_df[obj_cols] = (
+        display_df[obj_cols]
+            .apply(lambda s: s.astype("string").str.strip())
+            .replace(r"^\s*$", pd.NA, regex=True)
+    )
+
+#render
+st.dataframe(display_df.style.format(na_rep="Unknown"))
 
 
 
