@@ -62,12 +62,99 @@ age_range = st.sidebar.slider(
     min_value=age_min,
     max_value=age_max,
     value=(age_min, age_max),
-    step=1
+    step=1,
+    help="Minimum and maximum are constrainted by the minimum and maximum ages in dataset"
 )
 
-# 3. sex 
+# 3) Sex checkboxes
+sex_filters = []
+if st.sidebar.checkbox("Male", True):            sex_filters.append("Male")
+if st.sidebar.checkbox("Female", True):          sex_filters.append("Female")
+if st.sidebar.checkbox("Other/Unknown", True):   sex_filters.append("Other/Unknown")
+
+# 4) Handedness checkboxes
+hand_filters = []
+if st.sidebar.checkbox("Left", True):                     hand_filters.append("Left")
+if st.sidebar.checkbox("Right", True):                    hand_filters.append("Right")
+if st.sidebar.checkbox("Unknown/Ambidextrous", True):     hand_filters.append("Unknown/Ambidextrous")
+
+# 5) Study year input
+year_min = int(df['StudyYear_num'].min(skipna=True))
+year_max = int(df['StudyYear_num'].max(skipna=True))
+study_year = st.sidebar.number_input(
+    "Study year",
+    min_value=year_min,
+    max_value=year_max,
+    value=year_min,
+    step=1,
+    format="%d"
+)
+
+# ————— Apply Filters —————
+filtered = df.copy()
+
+# Age
+filtered = filtered[
+    (filtered['Age_num'] >= age_range[0]) &
+    (filtered['Age_num'] <= age_range[1])
+]
+
+# Sex
+if sex_filters:
+    filtered = filtered[filtered['Sex'].isin(sex_filters)]
+
+# Handedness
+if hand_filters:
+    filtered = filtered[filtered['Handeness'].isin(hand_filters)]
+
+# Study Year
+filtered = filtered[filtered['StudyYear_num'] == study_year]
+
+# ————— Binning —————
+bins   = np.arange(age_range[0], age_range[1] + bin_size, bin_size)
+labels = [f"{b}–{b+bin_size}" for b in bins[:-1]]
+filtered['age_bin'] = pd.cut(
+    filtered['Age_num'],
+    bins=bins,
+    right=False,
+    labels=labels,
+    include_lowest=True
+)
+
+counts = filtered['age_bin'].value_counts().reindex(labels, fill_value=0)
+
+# ————— Display —————
+st.subheader("Counts per Age Bin")
+st.bar_chart(counts)
+
+st.subheader("Bar Plot (Matplotlib)")
+fig, ax = plt.subplots(figsize=(8, 4))
+counts.plot(kind='bar', ax=ax, color='steelblue')
+ax.set_title("Participant Count by Age", fontsize=14)
+ax.set_xlabel("Age Bin", fontsize=12)
+ax.set_ylabel("Count", fontsize=12)
+plt.xticks(rotation=45)
+plt.tight_layout()
+st.pyplot(fig)
+
+# ————— Show Filtered Data —————
+st.subheader("Filtered Data Preview")
+st.dataframe(filtered.reset_index(drop=True))
+
+
+
+
+
+
+
+
+"""
+# 3. sex  
+sex_filters = []
+if st.sidebar.checkbox("")
 
 # 4. handedness
+
 
 # 5. study year
 
@@ -115,3 +202,4 @@ st.dataframe(filtered.reset_index(drop=True))
 
 
 
+"""
