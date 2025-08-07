@@ -10,7 +10,7 @@ from pathlib import Path
 from html import escape
 import altair as alt
 
-bin_color = 
+# bin_color = 
 female_color = "#E57A77"
 male_color = "#7CA1CC"
 unknown_sex_color = "#B08EA2"
