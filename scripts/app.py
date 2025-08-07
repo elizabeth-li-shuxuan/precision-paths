@@ -172,18 +172,17 @@ st.bar_chart(counts)
 
 # ————— DISPLAY DATA CSV —————
 st.subheader("Data")
-display_df = filtered.copy()
+display_df = filtered.reset_index(drop=True).copy()
 
-#for display only, fill in empty cells with "Unknown"
-obj_cols = display_df.select_dtypes(include=["object", "string"]).columns
-if len(obj_cols)>0:
-    display_df[obj_cols] = (
-        display_df[obj_cols]
-            .apply(lambda s: s.astype("string").str.strip())
-            .replace(r"^\s*$", pd.NA, regex=True)
+# Treat whitespace-only strings as NA in ANY text-like column
+text_like_cols = display_df.select_dtypes(include=["object", "string", "category"]).columns
+for col in text_like_cols:
+    display_df[col] = (
+        display_df[col].astype("string").str.strip()
+                       .replace(r"^\s*$", pd.NA, regex=True)
     )
 
-#render
+# Show every empty/NaN/NaT as "Unknown" without changing dtypes
 st.dataframe(display_df.style.format(na_rep="Unknown"))
 
 
