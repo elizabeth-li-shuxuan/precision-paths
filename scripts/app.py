@@ -71,7 +71,7 @@ def multi_pill_filter(label, options, help_text=None):
     """Render a multi-select pill widget and return the list of selected options"""
     return st.sidebar.pills(
         label,
-        option=options,
+        options=options,
         selection_mode='multi',
         default=options,
         help=help_text or f"Filter by {label.lower()}"
