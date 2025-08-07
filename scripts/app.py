@@ -9,7 +9,16 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 from html import escape
 
-# ————————————————————— App Title —————————————————————
+# ————————————————————— HELPER FUNCTIONS —————————————————————
+def empty_cell_to_unknown(s: pd.Series) -> pd.Series:
+    return (
+        s.astype("string").str.strip()
+         .replace(r"^\s*$", pd.NA, regex=True)
+         .fillna("Unknown")
+    )
+
+
+# ————————————————————— WEBPAGE TITLE —————————————————————
 title = "PFM Data Explorer"
 st.set_page_config(page_title=title)  # browser tab title (optional)
 
@@ -26,13 +35,6 @@ def load_data(path):
 
     df.columns = df.columns.str.strip() #remove white space
 
-    # map empty/NaN/whitespace cells to Unknown
-    def empty_cell_to_unknown(s):
-        return(
-            s.astype("string").str.strip()
-            .replace(r"^\s*$", pd.NA, regex=True) # blank -> NA
-            .fillna("Unknown") # NA -> "Unknown"
-        )
     # select which columns to add "Unknowns" to
     for col in ["Sex", "Handedness"]:
         if col in df.columns:
@@ -126,12 +128,7 @@ st.sidebar.header("Dataset filter")
 dataset_col="Dataset"
 
 #treat empty cells as Unknown for selection
-_ds_all = (
-    df[dataset_col]
-      .astype("string").str.strip()
-      .replace(r"^\s*$", pd.NA, regex=True)
-      .fillna("Unknown")
-)
+_ds_all = empty_cell_to_unknown(df[dataset_col])
 dataset_options = sorted(_ds_all.unique().tolist())
 
 dataset_selected = st.sidebar.multiselect(
@@ -171,12 +168,7 @@ filtered = filtered[
 
 #5. dataset
 if dataset_selected:
-    _ds_norm = (
-        filtered[dataset_col] #turn empty cells into Unknown
-            .astype("string").str.strip()
-            .replace(r"^\s*$", pd.NA, regex=True)
-            .fillna("Unknown")
-    )
+    _ds_norm = empty_cell_to_unknown(filtered[dataset_col])
     filtered = filtered[_ds_norm.isin(dataset_selected)]
 
 
@@ -213,11 +205,7 @@ display_df = filtered.reset_index(drop=True).copy()
 # turn empty cells into "Unknown" for display only
 obj_cols = display_df.select_dtypes(include=["object", "string", "category"]).columns
 if len(obj_cols) > 0:
-    display_df[obj_cols] = (
-        display_df[obj_cols]
-            .apply(lambda s: s.astype("string").str.strip())
-            .replace(r"^\s*$", pd.NA, regex=True)
-    )
+    display_df[obj_cols] = display_df[obj_cols].apply(empty_cell_to_unknown)
 
 na_mask = display_df.isna()
 display_df = display_df.astype(str)
