@@ -23,6 +23,21 @@ st.markdown(
 # @st.cache_data  # Temporarily disable caching while you iterate
 def load_data(path):
     df = pd.read_csv(path)
+
+    df.columns = df.columns.str.strip() #remove white space
+
+    # map empty/NaN/whitespace cells to Unknown
+    def empty_cell_to_unknown(s):
+        return(
+            s.astype("string").str.strip()
+            .replace(r"^\s*$", pd.NA, regex=True) # blank -> NA
+            .fillna("Unknown") # NA -> "Unknown"
+        )
+    # select which columns to add "Unknowns" to
+    for col in ["Sex", "Handedness"]:
+        if col in df.columns:
+            df[col] = empty_cell_to_unknown(df[col])
+    
     # parse Age_num
     def parse_age(age):
         if isinstance(age, str):
@@ -38,6 +53,7 @@ def load_data(path):
         except:
             return np.nan
     df['Age_num'] = df['Age'].apply(parse_age)
+
     # parse Study Year to a 4-digit int
     def parse_year(y):
         m = re.search(r'\b(\d{4})\b', str(y))
@@ -90,7 +106,6 @@ handedness_options=["Left", "Right", "Ambidextrous", "Unknown"]
 
 sex_filters = multi_pill_filter("Sex", sex_options)
 handedness_filters = multi_pill_filter("Handedness", handedness_options)
-
 
 # 4. study year
 year_min = int(df['StudyYear_num'].min(skipna=True))
