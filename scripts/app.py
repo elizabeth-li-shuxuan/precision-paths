@@ -66,7 +66,7 @@ df = load_data("data/data.csv")
 
 
 # ————————————————————— SIDEBAR —————————————————————
-st.sidebar.header("Select demographics")
+st.sidebar.header("Demographics filter")
 
 # 1. age range and bin size
 age_min  = int(df['Age_num'].min(skipna=True))
@@ -120,7 +120,26 @@ study_year_range = st.sidebar.slider(
     help="Minimum and maximum are constrained by the minimum and maximum study years available"
 )
 
-st.sidebar.header("Select dataset")
+
+# 5. dataset
+st.sidebar.header("Dataset filter")
+dataset_col="Dataset"
+
+#treat empty cells as Unknown for selection
+_ds_all = (
+    df[dataset_col]
+      .astype("string").str.strip()
+      .replace(r"^\s*$", pd.NA, regex=True)
+      .fillna("Unknown")
+)
+dataset_options = sorted(_ds_all.unique().tolist())
+
+dataset_selected = st.sidebar.multiselect(
+    dataset_col,
+    options=dataset_options,
+    default=dataset_options,
+    help="Filter by {dataset_col}"
+)
 
 
 
@@ -149,6 +168,17 @@ filtered = filtered[
     (filtered['StudyYear_num'] <= study_year_range[1])
 ]
 
+#5. dataset
+if dataset_selected:
+    _ds_norm = (
+        filtered[dataset_col]
+            .astype("string").str.strip()
+            .replace(r"^\s*$", pd.NA, regex=True)
+            .fillna("Unknown")
+    )
+    filtered = filtered[_ds_norm.isin(dataset_selected)]
+
+
 
 
 # ————————————————————— BINNING —————————————————————
@@ -174,7 +204,7 @@ st.bar_chart(counts)
 
 
 # ————— DISPLAY DATA CSV —————
-st.subheader("Data")
+st.subheader("Data after applying filters")
 
 # Make a display-only copy
 display_df = filtered.reset_index(drop=True).copy()
