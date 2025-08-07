@@ -198,7 +198,7 @@ st.bar_chart(counts)
 st.subheader("Counts by Demographics")
 st.write(f"Total participants: {len(filtered)}")
 st.write(f"Age range: {filtered['Age_num'].min()}–{filtered['Age_num'].max()} years (Mean: {filtered['Age_num'].mean():.3f} ± {filtered['Age_num'].std():.3f} years)")
-st.write(f'Sex: {(df['Sex'] == 'Female').sum()} Female')
+st.write(f'Sex: {(filtered['Sex'] == 'Female').sum()} Female')
 
 
 # ————————————————————— DISPLAY DATA CSV —————————————————————
