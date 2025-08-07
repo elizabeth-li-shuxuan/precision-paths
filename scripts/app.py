@@ -81,17 +81,6 @@ filtered = filtered[
     (filtered['Age_num'] <= age_range[1])
 ]
 
-# Sex
-if sex_filters:
-    filtered = filtered[filtered['Sex'].isin(sex_filters)]
-
-# Handedness
-if hand_filters:
-    filtered = filtered[filtered['Handeness'].isin(hand_filters)]
-
-# Study Year
-filtered = filtered[filtered['StudyYear_num'] == study_year]
-
 # ————— Binning —————
 bins   = np.arange(age_range[0], age_range[1] + bin_size, bin_size)
 labels = [f"{b}–{b+bin_size}" for b in bins[:-1]]
