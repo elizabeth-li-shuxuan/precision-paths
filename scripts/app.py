@@ -7,10 +7,16 @@ import numpy as np
 import re
 import matplotlib.pyplot as plt
 from pathlib import Path
+from html import escape
 
 # ————————————————————— App Title —————————————————————
-st.markdown("<h1 style='text-align: center;'>PFM Data Explorer</h1>", unsafe_allow_html=True)
+title = "PFM Data Explorer"
+st.set_page_config(page_title=title)  # browser tab title (optional)
 
+st.markdown(
+    f"<h1 style='text-align:center;'>{escape(title)}</h1>",
+    unsafe_allow_html=True
+)
 
 
 # ————————————————————— LOAD AND CACHE DATA —————————————————————
