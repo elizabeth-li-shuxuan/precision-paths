@@ -120,6 +120,9 @@ study_year_range = st.sidebar.slider(
     help="Minimum and maximum are constrained by the minimum and maximum study years available"
 )
 
+# st.sidebar.header("Demographics")
+
+
 
 
 
@@ -176,7 +179,7 @@ st.subheader("Data")
 # Make a display-only copy
 display_df = filtered.reset_index(drop=True).copy()
 
-# 1) In text-like columns, turn whitespace-only strings into NA
+# turn empty cells into "Unknown" for display only
 obj_cols = display_df.select_dtypes(include=["object", "string", "category"]).columns
 if len(obj_cols) > 0:
     display_df[obj_cols] = (
@@ -185,16 +188,10 @@ if len(obj_cols) > 0:
             .replace(r"^\s*$", pd.NA, regex=True)
     )
 
-# 2) Remember which cells were NA (covers NaN/NaT/None/<NA>)
 na_mask = display_df.isna()
-
-# 3) Convert EVERYTHING to strings for reliable rendering
 display_df = display_df.astype(str)
-
-# 4) Put "Unknown" exactly where values were missing
 display_df = display_df.where(~na_mask, "Unknown")
 
-# 5) Show it
+# render
 st.dataframe(display_df, use_container_width=True)
-
 
