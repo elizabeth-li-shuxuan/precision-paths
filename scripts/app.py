@@ -135,9 +135,11 @@ _ds_all = (
 dataset_options = sorted(_ds_all.unique().tolist())
 
 dataset_selected = st.sidebar.multiselect(
+    "",
     options=dataset_options,
     default=dataset_options,
-    help="Filter by {dataset_col}"
+    label_visibility="collapsed",   # no label & no reserved space
+    placeholder=f"Select {dataset_col}(s)"
 )
 
 
