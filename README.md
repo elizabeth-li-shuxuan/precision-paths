@@ -8,7 +8,6 @@ This repository is a project for Neurohackademy 2025 with following goals:
 - Summarize Preprocessing Steps and key parameters for each dataset (to facilitate cross-dataset comparisons)
 - Future Plan: Periodic updates as more data become available and gaps in the literature are filled
 
-
 ## What is PFM?
 We borrow our primary definition from previous work.
 > "PFM is the precise characterization of individual brain function, currently made possible by the collection of hours of non-invasive fMRI data from an individual, typically collected over multiple visits. PFM relies on large amounts of resting state or task fMRI data in order to extract highly reliable, individualized estimates of brain function and functional connectivity (FC), which allow for the creation of high-resolution, high-fidelity individual-specific maps of functional brain networks or activation." [(Demeter & Greene, 2025)](https://doi.org/10.1038/s41386-024-01941-z)[^1]
