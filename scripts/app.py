@@ -194,10 +194,15 @@ counts = filtered['age_bin'].value_counts().reindex(labels, fill_value=0)
 st.subheader("Counts per Age Bin")
 st.bar_chart(counts)
 
+# ————————————————————— DISPLAY COUNTS BY DEMOGRAPHICS   —————————————————————
+st.subheader("Counts by Demographics")
+st.write(f"Total participants: {len(filtered)}")
+st.write(f"Age range: {filtered['Age_num'].min()}–{filtered['Age_num'].max()} years (Mean: {filtered['Age_num'].mean():.3f} ± {filtered['Age_num'].std():.3f} years)")
+st.write(f'Sex: {(df['Sex'] == 'Female').sum()} Female')
 
 
-# ————— DISPLAY DATA CSV —————
-st.subheader("Data after applying filters")
+# ————————————————————— DISPLAY DATA CSV —————————————————————
+st.subheader("Data After Applying Filters")
 
 # Make a display-only copy
 display_df = filtered.reset_index(drop=True).copy()
