@@ -133,8 +133,6 @@ filtered = filtered[
 
 
 
-
-
 # ————————————————————— BINNING —————————————————————
 bins = np.arange(age_range[0], age_range[1]+bin_size, bin_size)
 # say bin size = 5, produce labels on the x-axis like "0-5", "5-10", ..., "75-80"
@@ -155,18 +153,9 @@ counts = filtered['age_bin'].value_counts().reindex(labels, fill_value=0)
 st.subheader("Counts per Age Bin")
 st.bar_chart(counts)
 
-st.subheader("Bar Plot (Matplotlib)")
-fig, ax = plt.subplots(figsize=(8, 4))
-counts.plot(kind='bar', ax=ax, color='steelblue')
-ax.set_title("Participant Count by Age", fontsize=14)
-ax.set_xlabel("Age Bin", fontsize=12)
-ax.set_ylabel("Count", fontsize=12)
-plt.xticks(rotation=45)
-plt.tight_layout()
-st.pyplot(fig)
 
-# ————— Show Filtered Data —————
-st.subheader("Filtered Data Preview")
+# ————— DISPLAY DATA CSV —————
+st.subheader("Data")
 st.dataframe(filtered.reset_index(drop=True))
 
 
