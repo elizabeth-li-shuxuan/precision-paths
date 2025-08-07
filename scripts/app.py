@@ -123,7 +123,7 @@ if handedness_filters:
 #4. study year
 filtered = filtered[
     (filtered['StudyYear_num'] >= study_year_range[0]) &
-    (filtered['Age_StudyYear_numnum'] <= study_year_range[1])
+    (filtered['StudyYear_num'] <= study_year_range[1])
 ]
 
 
