@@ -14,7 +14,7 @@ st.title("PFM Data Explorer")
 
 
 # ————————————————————— LOAD AND CACHE DATA —————————————————————
-@st.cache_data
+# @st.cache_data  # Temporarily disable caching while you iterate
 def load_data(path):
     df = pd.read_csv(path)
     # parse Age_num
@@ -40,7 +40,6 @@ def load_data(path):
     return df
 
 df = load_data("data/data.csv")
-st.write("Available columns:", df.columns.tolist())
 
 
 
