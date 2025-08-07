@@ -10,6 +10,14 @@ from pathlib import Path
 from html import escape
 import altair as alt
 
+bin_color = 
+female_color = "#E57A77"
+male_color = "#7CA1CC"
+unknown_sex_color = "#B08EA2"
+other_sex_color = "gray"
+
+
+
 # ————————————————————— HELPER FUNCTIONS —————————————————————
 def empty_cell_to_unknown(s: pd.Series) -> pd.Series:
     return (
@@ -251,20 +259,20 @@ df_long = (
 
 #female red, male blue
 color_domain = ["Female", "Male", "Other", "Unknown"]
-color_range  = ["red",    "blue",  "#2ca02c", "gray"]
+color_range  = [female_color, male_color, other_sex_color, unknown_sex_color]
 
 chart = (
     alt.Chart(df_long)
     .mark_bar()
     .encode(
-        x=alt.X("AgeBin:N", sort=labels, title="Age Bin"),
-                xOffset=alt.X("Sex:N"),
+        x=alt.X("AgeBin:N", sort=labels, title="Age"),
+        xOffset=alt.X("Sex:N"),
         y=alt.Y("Count:Q", title="Count"),
-        color=alt.Color("Sex:N", scale=alt.Scale(domain=color_domain, range=color_range)),
-        tooltip=["Sex:N", "AgeBin:N", "Count:Q"],
-    )
-    .properties(height=360)
+        color=alt.Color(
+            "Sex:N",
+            scale = alt.Scale(domain=color_domain, range=color_range),
+            legend = alt.Legend(title="Sex"),
+        ),
+        tooltip = ["Sex:N", "AgeBin:N", "Count:Q"],
+    ).properties(height=360)
 )
-st.altair_chart(chart, use_container_width=True)
-
-
