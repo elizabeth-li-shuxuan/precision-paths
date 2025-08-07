@@ -39,8 +39,8 @@ def load_data(path):
     df['StudyYear_num'] = df['Study Year'].apply(parse_year)
     return df
 
-data_path = "data/data.csv" #top?
-df = load_data(data_path)
+df = load_data("data/data.csv")
+st.write("Available columns:", df.columns.tolist())
 
 
 
@@ -66,7 +66,7 @@ age_range = st.sidebar.slider(
     max_value=age_max,
     value=(age_min, age_max),
     step=1,
-    help="Minimum and maximum are constrainted by the minimum and maximum ages available"
+    help="Minimum and maximum are constrained by the minimum and maximum ages available"
 )
 
 # 2 and 3. sex and handedness checkboxes ("pills")
@@ -97,7 +97,7 @@ study_year_range = st.sidebar.slider(
     max_value=year_max,
     value=(year_min, year_max),
     step=1,
-    help="Minimum and maximum are constrainted by the minimum and maximum ages available"
+    help="Minimum and maximum are constrained by the minimum and maximum study years available"
 )
 
 
@@ -118,7 +118,7 @@ if sex_filters:
 
 #3. handedness
 if handedness_filters:
-    filtered = filtered[filtered['Handedness'].isin(handedness_filters)]
+    filtered = filtered[filtered["Handedness"].isin(handedness_filters)]
 
 #4. study year
 filtered = filtered[
