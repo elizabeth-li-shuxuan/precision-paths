@@ -8,6 +8,7 @@ import re
 import matplotlib.pyplot as plt
 from pathlib import Path
 from html import escape
+import altair as alt
 
 # ————————————————————— HELPER FUNCTIONS —————————————————————
 def empty_cell_to_unknown(s: pd.Series) -> pd.Series:
@@ -223,25 +224,47 @@ st.dataframe(display_df, use_container_width=True)
 
 
 
-# —————————————————— SIDE-BY-SIDE BAR PLOTS ——————————————————
+# —————————————————— SIDE-BY-SIDE BAR PLOT ——————————————————
 st.subheader("Age Distribution by Sex (overlapped)")
 
-df_plot = filtered
-if df_plot.empty:
-    st.info("No data matches the current filters.")
-else:
-    # Use selected pills if provided; otherwise show whatever is in the filtered data
-    groups = sex_filters if sex_filters else df_plot["Sex"].dropna().unique().tolist()
+# pick groups: use selected pills, else what's in data, else a default list
+groups = sex_filters or filtered["Sex"].dropna().unique().tolist() or ["Female", "Male", "Other", "Unknown"]
 
-    # Build wide-form counts: index = age-bin labels, columns = Sex groups
-    grouped_counts = pd.DataFrame(index=labels)
-    for g in groups:
-        g_counts = (
-            df_plot.loc[df_plot["Sex"] == g, "age_bin"]
-                   .value_counts()
-                   .reindex(labels, fill_value=0)
-        )
-        grouped_counts[g] = g_counts.values
+#Start with zeros for every bin x group
+grouped_counts = pd.DataFrame(0, index=labels, columns = groups)
 
-    # Render as side-by-side bars
-    st.bar_chart(grouped_counts, use_container_width=True)
+#fill in real counts where present
+for g in groups:
+    g_counts = (
+        filtered.loc[filtered["Sex"] == g, "age_bin"]
+            .value_counts()
+            .reindex(labels, fill_value=0)
+    )
+    grouped_counts[g] = g_counts.values
+
+#convert data from wide format to long format for Altair (visualization library)
+df_long = (
+    grouped_counts.reset_index()
+    .melt(id_vars="index", var_name="Sex", value_name="Count")
+    .rename(columns={"index": "AgeBin"})
+)
+
+#female red, male blue
+color_domain = ["Female", "Male", "Other", "Unknown"]
+color_range  = ["red",    "blue",  "#2ca02c", "gray"]
+
+chart = (
+    alt.Chart(df_long)
+    .mark_bar()
+    .encode(
+        x=alt.X("AgeBin:N", sort=labels, title="Age Bin"),
+                xOffset=alt.X("Sex:N"),
+        y=alt.Y("Count:Q", title="Count"),
+        color=alt.Color("Sex:N", scale=alt.Scale(domain=color_domain, range=color_range)),
+        tooltip=["Sex:N", "AgeBin:N", "Count:Q"],
+    )
+    .properties(height=360)
+)
+st.altair_chart(chart, use_container_width=True)
+
+
