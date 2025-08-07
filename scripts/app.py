@@ -172,19 +172,29 @@ st.bar_chart(counts)
 
 # ————— DISPLAY DATA CSV —————
 st.subheader("Data")
+
+# Make a display-only copy
 display_df = filtered.reset_index(drop=True).copy()
 
-# Treat whitespace-only strings as NA in ANY text-like column
-text_like_cols = display_df.select_dtypes(include=["object", "string", "category"]).columns
-for col in text_like_cols:
-    display_df[col] = (
-        display_df[col].astype("string").str.strip()
-                       .replace(r"^\s*$", pd.NA, regex=True)
+# 1) In text-like columns, turn whitespace-only strings into NA
+obj_cols = display_df.select_dtypes(include=["object", "string", "category"]).columns
+if len(obj_cols) > 0:
+    display_df[obj_cols] = (
+        display_df[obj_cols]
+            .apply(lambda s: s.astype("string").str.strip())
+            .replace(r"^\s*$", pd.NA, regex=True)
     )
 
-# Show every empty/NaN/NaT as "Unknown" without changing dtypes
-st.dataframe(display_df.style.format(na_rep="Unknown"))
+# 2) Remember which cells were NA (covers NaN/NaT/None/<NA>)
+na_mask = display_df.isna()
 
+# 3) Convert EVERYTHING to strings for reliable rendering
+display_df = display_df.astype(str)
 
+# 4) Put "Unknown" exactly where values were missing
+display_df = display_df.where(~na_mask, "Unknown")
+
+# 5) Show it
+st.dataframe(display_df, use_container_width=True)
 
 
