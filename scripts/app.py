@@ -11,6 +11,8 @@ from pathlib import Path
 # ————————————————————— App Title —————————————————————
 st.title("PFM Data Explorer")
 
+
+
 # ————————————————————— Load and cache data —————————————————————
 @st.cache_data
 def load_data(path):
@@ -41,6 +43,7 @@ data_path = "data/data.csv" #top?
 df = load_data(data_path)
 
 
+
 # ————————————————————— Sidebar —————————————————————
 st.sidebar.header("Demographics")
 
@@ -63,10 +66,10 @@ age_range = st.sidebar.slider(
     max_value=age_max,
     value=(age_min, age_max),
     step=1,
-    help="Minimum and maximum are constrainted by the minimum and maximum ages in dataset"
+    help="Minimum and maximum are constrainted by the minimum and maximum ages available"
 )
 
-# 3. sex and handedness checkboxes ("pills")
+# 3 and 4. sex and handedness checkboxes ("pills")
 def multi_pill_filter(label, options, help_text=None):
     """Render a multi-select pill widget and return the list of selected options"""
     return st.sidebar.pills(
@@ -77,38 +80,51 @@ def multi_pill_filter(label, options, help_text=None):
         help=help_text or f"Filter by {label.lower()}"
     )
 
-sex_options=["Male", "Female", "Other/Unknown"]
+sex_options=["Male", "Female", "Other", "Unknown"]
 handedness_options=["Left", "Right", "Ambidextrous", "Unknown"]
 
 sex_filters = multi_pill_filter("Sex", sex_options)
 handedness_filters = multi_pill_filter("Handedness", handedness_options)
 
 
-
-
-
 # 5. study year
+year_min = int(df['StudyYear_num'].min(skipna=True))
+year_max = int(df['StudyYear_num'].max(skipna=True))
+
+study_year_range = st.sidebar.slider(
+    "Study year range",
+    min_value=year_min,
+    max_value=year_max,
+    value=(year_min, year_max),
+    step=1,
+    help="Minimum and maximum are constrainted by the minimum and maximum ages available"
+)
 
 
 
 
-# ————— Apply Filters —————
+# ————————————————————— Apply filters —————————————————————
 filtered = df.copy()
 
-# Age
+# 1) Age filter
 filtered = filtered[
     (filtered['Age_num'] >= age_range[0]) &
     (filtered['Age_num'] <= age_range[1])
 ]
 
-# Sex
+# 2) Sex filter (only if any are selected)
 if sex_filters:
     filtered = filtered[filtered['Sex'].isin(sex_filters)]
 
-# Handedness
+# 3) Handedness filter (only if any are selected)
 if handedness_filters:
     filtered = filtered[filtered['Handeness'].isin(handedness_filters)]
 
+# 4) Study Year range filter
+filtered = filtered[
+    (filtered['StudyYear_num'] >= study_year_range[0]) &
+    (filtered['StudyYear_num'] <= study_year_range[1])
+]
 
 # ————— Binning —————
 bins   = np.arange(age_range[0], age_range[1] + bin_size, bin_size)
