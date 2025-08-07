@@ -177,7 +177,7 @@ if dataset_selected:
 # ————————————————————— BINNING —————————————————————
 bins = np.arange(age_range[0], age_range[1]+bin_size, bin_size)
 # say bin size = 5, produce labels on the x-axis like "0-5", "5-10", ..., "75-80"
-labels = [f"{b}–{b+bin_size}" for b in bins[:-1]]
+labels = [f"{b:02d}–{b+bin_size:02d}" for b in bins[:-1]]
 filtered['age_bin'] = pd.cut(
     filtered['Age_num'],
     bins=bins,
@@ -223,58 +223,25 @@ st.dataframe(display_df, use_container_width=True)
 
 
 
-# —————————————————— OVERLAPPED AGE HISTOGRAM BY SEX ——————————————————
+# —————————————————— SIDE-BY-SIDE BAR PLOTS ——————————————————
 st.subheader("Age Distribution by Sex (overlapped)")
 
 df_plot = filtered
 if df_plot.empty:
     st.info("No data matches the current filters.")
 else:
-    # Settings (re-use your bin_size)
-    bin_width = int(bin_size)
-    overlap_fraction = 0.75      # amount of overlap between groups (0..1)
-    group_spacing_factor = 1.3   # >1 adds space between adjacent bins
-    colors = {"Male": "blue", "Female": "red", "Other": "green", "Unknown": "gray"}
-
-    # Use selected pills order if provided; otherwise derive from data
+    # Use selected pills if provided; otherwise show whatever is in the filtered data
     groups = sex_filters if sex_filters else df_plot["Sex"].dropna().unique().tolist()
 
-    # Define bins from the filtered data
-    min_age = float(df_plot["Age_num"].min())
-    max_age = float(df_plot["Age_num"].max())
-    bins = np.arange(np.floor(min_age), np.ceil(max_age) + bin_width, bin_width)
-
-    # Spacing/offsets
-    adjusted_bin_width = bin_width * group_spacing_factor
-    offset = bin_width * (1 - overlap_fraction) / 2
-
-    # Plot
-    fig, ax = plt.subplots()
-    bar_centers = np.arange(len(bins) - 1) * adjusted_bin_width + bins[0] + bin_width / 2
-
-    for i, group in enumerate(groups):
-        sub_df = df_plot[df_plot["Sex"] == group]
-        counts, _ = np.histogram(sub_df["Age_num"], bins=bins)
-
-        shift = (-1) ** i * offset  # alternate left/right
-        ax.bar(
-            bar_centers + shift,
-            counts,
-            width=bin_width * 0.8,
-            alpha=0.5,
-            color=colors.get(group, "gray"),
-            label=group,
-            align="center",
+    # Build wide-form counts: index = age-bin labels, columns = Sex groups
+    grouped_counts = pd.DataFrame(index=labels)
+    for g in groups:
+        g_counts = (
+            df_plot.loc[df_plot["Sex"] == g, "age_bin"]
+                   .value_counts()
+                   .reindex(labels, fill_value=0)
         )
+        grouped_counts[g] = g_counts.values
 
-    # Labels & ticks
-    ax.set_title("Age Distribution by Sex")
-    ax.set_xlabel("Age")
-    ax.set_ylabel("Count")
-    ax.legend()
-
-    ax.set_xticks(bar_centers)
-    ax.set_xticklabels([f"{int(b)}–{int(b + bin_width)}" for b in bins[:-1]], rotation=45)
-
-    plt.tight_layout()
-    st.pyplot(fig)
+    # Render as side-by-side bars
+    st.bar_chart(grouped_counts, use_container_width=True)
