@@ -13,7 +13,7 @@ st.title("PFM Data Explorer")
 
 
 
-# ————————————————————— Load and cache data —————————————————————
+# ————————————————————— LOAD AND CACHE DATA —————————————————————
 @st.cache_data
 def load_data(path):
     df = pd.read_csv(path)
@@ -44,7 +44,7 @@ df = load_data(data_path)
 
 
 
-# ————————————————————— Sidebar —————————————————————
+# ————————————————————— SIDEBAR —————————————————————
 st.sidebar.header("Demographics")
 
 # 1. age range and bin size
@@ -69,7 +69,7 @@ age_range = st.sidebar.slider(
     help="Minimum and maximum are constrainted by the minimum and maximum ages available"
 )
 
-# 3 and 4. sex and handedness checkboxes ("pills")
+# 2 and 3. sex and handedness checkboxes ("pills")
 def multi_pill_filter(label, options, help_text=None):
     """Render a multi-select pill widget and return the list of selected options"""
     return st.sidebar.pills(
@@ -87,7 +87,7 @@ sex_filters = multi_pill_filter("Sex", sex_options)
 handedness_filters = multi_pill_filter("Handedness", handedness_options)
 
 
-# 5. study year
+# 4. study year
 year_min = int(df['StudyYear_num'].min(skipna=True))
 year_max = int(df['StudyYear_num'].max(skipna=True))
 
@@ -103,31 +103,37 @@ study_year_range = st.sidebar.slider(
 
 
 
-# ————————————————————— Apply filters —————————————————————
+# ————————————————————— APPLY FILTERS —————————————————————
 filtered = df.copy()
 
-# 1) Age filter
+#1. age 
 filtered = filtered[
     (filtered['Age_num'] >= age_range[0]) &
     (filtered['Age_num'] <= age_range[1])
 ]
 
-# 2) Sex filter (only if any are selected)
+#2. sex
 if sex_filters:
     filtered = filtered[filtered['Sex'].isin(sex_filters)]
 
-# 3) Handedness filter (only if any are selected)
+#3. handedness
 if handedness_filters:
-    filtered = filtered[filtered['Handeness'].isin(handedness_filters)]
+    filtered = filtered[filtered['Handedness'].isin(handedness_filters)]
 
-# 4) Study Year range filter
+#4. study year
 filtered = filtered[
     (filtered['StudyYear_num'] >= study_year_range[0]) &
-    (filtered['StudyYear_num'] <= study_year_range[1])
+    (filtered['Age_StudyYear_numnum'] <= study_year_range[1])
 ]
 
-# ————— Binning —————
-bins   = np.arange(age_range[0], age_range[1] + bin_size, bin_size)
+
+
+
+
+
+# ————————————————————— BINNING —————————————————————
+bins = np.arange(age_range[0], age_range[1]+bin_size, bin_size)
+# say bin size = 5, produce labels on the x-axis like "0-5", "5-10", ..., "75-80"
 labels = [f"{b}–{b+bin_size}" for b in bins[:-1]]
 filtered['age_bin'] = pd.cut(
     filtered['Age_num'],
@@ -136,8 +142,9 @@ filtered['age_bin'] = pd.cut(
     labels=labels,
     include_lowest=True
 )
-
 counts = filtered['age_bin'].value_counts().reindex(labels, fill_value=0)
+
+
 
 # ————— Display —————
 st.subheader("Counts per Age Bin")
