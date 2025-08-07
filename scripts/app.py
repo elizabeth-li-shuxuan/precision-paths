@@ -66,29 +66,31 @@ age_range = st.sidebar.slider(
     help="Minimum and maximum are constrainted by the minimum and maximum ages in dataset"
 )
 
-# 3) Sex checkboxes
-sex_filters = []
-if st.sidebar.checkbox("Male", True):            sex_filters.append("Male")
-if st.sidebar.checkbox("Female", True):          sex_filters.append("Female")
-if st.sidebar.checkbox("Other/Unknown", True):   sex_filters.append("Other/Unknown")
+# 3. sex and handedness checkboxes ("pills")
+def multi_pill_filter(label, options, help_text=None):
+    """Render a multi-select pill widget and return the list of selected options"""
+    return st.sidebar.pills(
+        label,
+        option=options,
+        selection_mode='multi',
+        default=options,
+        help=help_text or f"Filter by {label.lower()}"
+    )
 
-# 4) Handedness checkboxes
-hand_filters = []
-if st.sidebar.checkbox("Left", True):                     hand_filters.append("Left")
-if st.sidebar.checkbox("Right", True):                    hand_filters.append("Right")
-if st.sidebar.checkbox("Unknown/Ambidextrous", True):     hand_filters.append("Unknown/Ambidextrous")
+sex_options=["Male", "Female", "Other/Unknown"]
+handedness_options=["Left", "Right", "Ambidextrous", "Unknown"]
 
-# 5) Study year input
-year_min = int(df['StudyYear_num'].min(skipna=True))
-year_max = int(df['StudyYear_num'].max(skipna=True))
-study_year = st.sidebar.number_input(
-    "Study year",
-    min_value=year_min,
-    max_value=year_max,
-    value=year_min,
-    step=1,
-    format="%d"
-)
+sex_filters = multi_pill_filter("Sex", sex_options)
+handedness_filters = multi_pill_filter("Handedness", handedness_options)
+
+
+
+
+
+# 5. study year
+
+
+
 
 # ————— Apply Filters —————
 filtered = df.copy()
@@ -104,11 +106,9 @@ if sex_filters:
     filtered = filtered[filtered['Sex'].isin(sex_filters)]
 
 # Handedness
-if hand_filters:
-    filtered = filtered[filtered['Handeness'].isin(hand_filters)]
+if handedness_filters:
+    filtered = filtered[filtered['Handeness'].isin(handedness_filters)]
 
-# Study Year
-filtered = filtered[filtered['StudyYear_num'] == study_year]
 
 # ————— Binning —————
 bins   = np.arange(age_range[0], age_range[1] + bin_size, bin_size)
@@ -144,62 +144,3 @@ st.dataframe(filtered.reset_index(drop=True))
 
 
 
-
-
-
-
-"""
-# 3. sex  
-sex_filters = []
-if st.sidebar.checkbox("")
-
-# 4. handedness
-
-
-# 5. study year
-
-
-# ————— Apply Filters —————
-filtered = df.copy()
-
-# Age
-filtered = filtered[
-    (filtered['Age_num'] >= age_range[0]) &
-    (filtered['Age_num'] <= age_range[1])
-]
-
-# ————— Binning —————
-bins   = np.arange(age_range[0], age_range[1] + bin_size, bin_size)
-labels = [f"{b}–{b+bin_size}" for b in bins[:-1]]
-filtered['age_bin'] = pd.cut(
-    filtered['Age_num'],
-    bins=bins,
-    right=False,
-    labels=labels,
-    include_lowest=True
-)
-
-counts = filtered['age_bin'].value_counts().reindex(labels, fill_value=0)
-
-# ————— Display —————
-st.subheader("Counts per Age Bin")
-st.bar_chart(counts)
-
-st.subheader("Bar Plot (Matplotlib)")
-fig, ax = plt.subplots(figsize=(8, 4))
-counts.plot(kind='bar', ax=ax, color='steelblue')
-ax.set_title("Participant Count by Age", fontsize=14)
-ax.set_xlabel("Age Bin", fontsize=12)
-ax.set_ylabel("Count", fontsize=12)
-plt.xticks(rotation=45)
-plt.tight_layout()
-st.pyplot(fig)
-
-# ————— Show Filtered Data —————
-st.subheader("Filtered Data Preview")
-st.dataframe(filtered.reset_index(drop=True))
-
-
-
-
-"""
