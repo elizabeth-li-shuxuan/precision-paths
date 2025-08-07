@@ -11,7 +11,7 @@ We borrow our primary definition from previous work.
 Please note that there is no "one-size-fits-all" definition since every study has different methodololgical details (e.g., single echo vs. multi-echo; 3T vs. 7T tesla; collection sites; type of scanners; task paradigms; target population) and goals (e.g., ROI-based vs. whole-brain analysis, cortex requires 45 min of data to achieve high reliability while the cerebellum and subcortex require more [(Gordon et al., 2017)](https://www.cell.com/neuron/fulltext/S089662731730613X)[^2], [(Greene et al., 2020)](https://www.cell.com/neuron/fulltext/S0896-6273(19)30975-4?dgcid=raven_jbs_etoc_email)[^3], [(Lynch et al., 2020)](https://www.sciencedirect.com/science/article/pii/S2352154620301996#bib0270)[^4]. Our decision was mainly built upon the definition from [(Gratton et al, 2019)](https://pmc.ncbi.nlm.nih.gov/articles/PMC7203002/)[^5]. You can check if the dataset is openly available or not in the [*spreadsheet*](https://docs.google.com/spreadsheets/d/1ZMnbptWr2mAtJtoK5vAUa3AvqwJfOTWLE0lrchhi25w/edit?usp=sharing).
 
 ## Ongoing Data Aggregation
-Building a GitHub Repository for Precision (Functional Mapping) Datasets: [Lit Review Spreadsheet](https://docs.google.com/spreadsheets/d/1ZMnbptWr2mAtJtoK5vAUa3AvqwJfOTWLE0lrchhi25w/edit?gid=0#gid=0)
+Building a GitHub Repository for Precision (Functional Mapping) Datasets: [Literature Review Spreadsheet](https://docs.google.com/spreadsheets/d/1GAycMBfSNfVKg72nL3qlH0fvf_AokEXm1qFT6KMysBk/edit?usp=sharing)
 
 ## Goals:
 - Summary and Graphical Figure of released PFM datasets as a function of target sample age [reference](https://link.springer.com/article/10.1007/s12021-021-09519-6/figures/1)
