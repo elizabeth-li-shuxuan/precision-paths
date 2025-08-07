@@ -1,6 +1,14 @@
 # **Precision Paths**
 ## An Aggregated, Curated, & Itemized Collection of Open and Available Precision Functional Mapping (PFM) from Resting State fMRI Data
 
+## Goals: 
+This repository is a project for Neurohackademy 2025 with following goals:
+- Summary and Graphical Figure of released PFM datasets
+- Provide easy access to the original articles/datasets using PFM approach
+- Summarize Preprocessing Steps and key parameters for each dataset (to facilitate cross-dataset comparisons)
+- Future Plan: Periodic updates as more data become available and gaps in the literature are filled
+
+
 ## What is PFM?
 We borrow our primary definition from previous work.
 > "PFM is the precise characterization of individual brain function, currently made possible by the collection of hours of non-invasive fMRI data from an individual, typically collected over multiple visits. PFM relies on large amounts of resting state or task fMRI data in order to extract highly reliable, individualized estimates of brain function and functional connectivity (FC), which allow for the creation of high-resolution, high-fidelity individual-specific maps of functional brain networks or activation." [(Demeter & Greene, 2025)](https://doi.org/10.1038/s41386-024-01941-z)[^1]
@@ -13,13 +21,9 @@ Please note that there is no "one-size-fits-all" definition since every study ha
 ## Ongoing Data Aggregation
 Building a GitHub Repository for Precision (Functional Mapping) Datasets: [Literature Review Spreadsheet](https://docs.google.com/spreadsheets/d/1GAycMBfSNfVKg72nL3qlH0fvf_AokEXm1qFT6KMysBk/edit?usp=sharing)
 
-## Goals:
-- Summary and Graphical Figure of released PFM datasets as a function of target sample age [reference](https://link.springer.com/article/10.1007/s12021-021-09519-6/figures/1)
-- GitHub Repository with 
-  - Links to original articles
-  - Links to open datasets
-- Summarize Preprocessing Steps and key parameters for each dataset (to facilitate cross-dataset comparisons)
-- Future Plan: Periodic updates as more data become available and gaps in the literature are filled
+In the spreadsheet, there are 3 sub-sheets. 
+- The first sheet (1. PFM papers with available data) is a list of papers with accessible data (publicly available or available upon request) that we could find for literature review. - The second sheet (2. Subject-level information) has more detailed information in a subject-level across these datasets. You can make a copy of the sheet and filter the subjects as you need. Descriptions are in the comments of the first row of a column. Papers with yellow highlight are papers that are not listed in Table 1 from [(Gratton et al, 2019)](https://pmc.ncbi.nlm.nih.gov/articles/PMC7203002/)[^5]. For visualization, we also provide an interacitve app version of this table, check out [PFM Data Explorer](https://precision-paths-gptlrvaefbfjz2bcowz4yb.streamlit.app/)! 
+- In the third sheet (3. Scan paramters), we summarized scan parameters of study that meets the following criteria: 1) 'TRUE' for 'Mostly resting state/ Enough Resting State' column in the 2nd spreadsheet, AND  2) 'Open' or 'Available upon request' for 'Open?' column in the 2nd spreadsheet. 
 
 ## Other useful resources
 - Lit Review Spreadsheet is an updated version of [(Gratton et al, 2019)](https://pmc.ncbi.nlm.nih.gov/articles/PMC7203002/)[^5]
