@@ -135,7 +135,6 @@ _ds_all = (
 dataset_options = sorted(_ds_all.unique().tolist())
 
 dataset_selected = st.sidebar.multiselect(
-    dataset_col,
     options=dataset_options,
     default=dataset_options,
     help="Filter by {dataset_col}"
@@ -171,7 +170,7 @@ filtered = filtered[
 #5. dataset
 if dataset_selected:
     _ds_norm = (
-        filtered[dataset_col]
+        filtered[dataset_col] #turn empty cells into Unknown
             .astype("string").str.strip()
             .replace(r"^\s*$", pd.NA, regex=True)
             .fillna("Unknown")
