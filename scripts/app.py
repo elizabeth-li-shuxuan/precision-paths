@@ -220,3 +220,61 @@ display_df = display_df.where(~na_mask, "Unknown")
 # render
 st.dataframe(display_df, use_container_width=True)
 
+
+
+
+# —————————————————— OVERLAPPED AGE HISTOGRAM BY SEX ——————————————————
+st.subheader("Age Distribution by Sex (overlapped)")
+
+df_plot = filtered
+if df_plot.empty:
+    st.info("No data matches the current filters.")
+else:
+    # Settings (re-use your bin_size)
+    bin_width = int(bin_size)
+    overlap_fraction = 0.75      # amount of overlap between groups (0..1)
+    group_spacing_factor = 1.3   # >1 adds space between adjacent bins
+    colors = {"Male": "blue", "Female": "red", "Other": "green", "Unknown": "gray"}
+
+    # Use selected pills order if provided; otherwise derive from data
+    groups = sex_filters if sex_filters else df_plot["Sex"].dropna().unique().tolist()
+
+    # Define bins from the filtered data
+    min_age = float(df_plot["Age_num"].min())
+    max_age = float(df_plot["Age_num"].max())
+    bins = np.arange(np.floor(min_age), np.ceil(max_age) + bin_width, bin_width)
+
+    # Spacing/offsets
+    adjusted_bin_width = bin_width * group_spacing_factor
+    offset = bin_width * (1 - overlap_fraction) / 2
+
+    # Plot
+    fig, ax = plt.subplots()
+    bar_centers = np.arange(len(bins) - 1) * adjusted_bin_width + bins[0] + bin_width / 2
+
+    for i, group in enumerate(groups):
+        sub_df = df_plot[df_plot["Sex"] == group]
+        counts, _ = np.histogram(sub_df["Age_num"], bins=bins)
+
+        shift = (-1) ** i * offset  # alternate left/right
+        ax.bar(
+            bar_centers + shift,
+            counts,
+            width=bin_width * 0.8,
+            alpha=0.5,
+            color=colors.get(group, "gray"),
+            label=group,
+            align="center",
+        )
+
+    # Labels & ticks
+    ax.set_title("Age Distribution by Sex")
+    ax.set_xlabel("Age")
+    ax.set_ylabel("Count")
+    ax.legend()
+
+    ax.set_xticks(bar_centers)
+    ax.set_xticklabels([f"{int(b)}–{int(b + bin_width)}" for b in bins[:-1]], rotation=45)
+
+    plt.tight_layout()
+    st.pyplot(fig)
