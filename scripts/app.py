@@ -201,6 +201,7 @@ st.subheader("Data after applying filters")
 
 # Make a display-only copy
 display_df = filtered.reset_index(drop=True).copy()
+display_df.index = display_df.index + 1 
 
 # turn empty cells into "Unknown" for display only
 obj_cols = display_df.select_dtypes(include=["object", "string", "category"]).columns
