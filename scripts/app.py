@@ -11,9 +11,9 @@ from html import escape
 import altair as alt
 
 # bin_color = 
-female_color = "#E57A77"
-male_color = "#7CA1CC"
-unknown_sex_color = "#B08EA2"
+female_color = "#E69F00"
+male_color = "#009E73"
+unknown_sex_color = "#739E3A"
 other_sex_color = "gray"
 
 
@@ -261,18 +261,21 @@ df_long = (
 color_domain = ["Female", "Male", "Other", "Unknown"]
 color_range  = [female_color, male_color, other_sex_color, unknown_sex_color]
 
-chart = (
+side_by_side_plot = (
     alt.Chart(df_long)
     .mark_bar()
     .encode(
-        x=alt.X("AgeBin:N", sort=labels, title="Age"),
+        x=alt.X("AgeBin:N", sort=labels, title="Age Bin"),
         xOffset=alt.X("Sex:N"),
         y=alt.Y("Count:Q", title="Count"),
         color=alt.Color(
             "Sex:N",
-            scale = alt.Scale(domain=color_domain, range=color_range),
-            legend = alt.Legend(title="Sex"),
+            scale=alt.Scale(domain=color_domain, range=color_range),
+            legend=alt.Legend(title="Sex"),
         ),
-        tooltip = ["Sex:N", "AgeBin:N", "Count:Q"],
-    ).properties(height=360)
+        tooltip=["Sex:N", "AgeBin:N", "Count:Q"],
+    )
+    .properties(height=360)
 )
+
+st.altair_chart(side_by_side_plot, use_container_width=True)
