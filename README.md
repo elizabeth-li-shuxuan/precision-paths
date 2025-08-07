@@ -1,5 +1,5 @@
 # **Precision Paths**
-: An Aggregated, Curated, & Itemized Collection of Open and Available Precision Functional Mapping (PFM) from Resting State fMRI Data
+## An Aggregated, Curated, & Itemized Collection of Open and Available Precision Functional Mapping (PFM) from Resting State fMRI Data
 
 ## Goals: 
 This repository is a project for Neurohackademy 2025 with following goals:
