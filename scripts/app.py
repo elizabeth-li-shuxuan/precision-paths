@@ -66,7 +66,7 @@ df = load_data("data/data.csv")
 
 
 # ————————————————————— SIDEBAR —————————————————————
-st.sidebar.header("Demographics")
+st.sidebar.header("Select demographics")
 
 # 1. age range and bin size
 age_min  = int(df['Age_num'].min(skipna=True))
@@ -97,7 +97,7 @@ def multi_pill_filter(label, options, help_text=None):
         label,
         options=options,
         selection_mode='multi',
-        default=options,
+        default=[],
         help=help_text or f"Filter by {label.lower()}"
     )
 
@@ -120,7 +120,7 @@ study_year_range = st.sidebar.slider(
     help="Minimum and maximum are constrained by the minimum and maximum study years available"
 )
 
-# st.sidebar.header("Demographics")
+st.sidebar.header("Select dataset")
 
 
 
