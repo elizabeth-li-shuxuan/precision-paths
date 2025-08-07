@@ -20,8 +20,7 @@ rest_only = st.sidebar.checkbox("Only include resting-state == True", value=True
 def load_data(path):
     return pd.read_csv(path)
 
-BASE_DIR  = Path(__file__).resolve().parent
-data_path = BASE_DIR / "data" / "data.csv"
+data_path = "data/data.csv"
 df = load_data(data_path)
 
 # ————— Parse Ages —————
