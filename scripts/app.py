@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 
 # ————————————————————— App Title —————————————————————
-st.title("PFM Data Explorer")
+st.markdown("<h1 style='text-align: center;'>PFM Data Explorer</h1>", unsafe_allow_html=True)
 
 
 
@@ -129,7 +129,6 @@ filtered = filtered[
 
 
 
-
 # ————————————————————— BINNING —————————————————————
 bins = np.arange(age_range[0], age_range[1]+bin_size, bin_size)
 # say bin size = 5, produce labels on the x-axis like "0-5", "5-10", ..., "75-80"
@@ -145,7 +144,8 @@ counts = filtered['age_bin'].value_counts().reindex(labels, fill_value=0)
 
 
 
-# ————— Display —————
+
+# ————————————————————— DISPLAY HISTOGRAM —————————————————————
 st.subheader("Counts per Age Bin")
 st.bar_chart(counts)
 
