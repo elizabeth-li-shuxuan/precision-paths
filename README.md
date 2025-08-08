@@ -38,7 +38,7 @@ In the spreadsheet, there are 3 sub-sheets.
 ## Note
 This repository is a project for Neurohackademy 2025.  
 
-## Works Cited
+### Works Cited
 [^1]: Demeter, D.V., Greene, D.J. The promise of precision functional mapping for neuroimaging in psychiatry. Neuropsychopharmacol. 50, 16–28 (2025). https://doi.org/10.1038/s41386-024-01941-z
 [^2]: Gordon, E. M., Laumann, T. O., Gilmore, A. W., Newbold, D. J., Greene, D. J., Berg, J. J., ... & Dosenbach, N. U. (2017). Precision functional mapping of individual human brains. Neuron, 95(4), 791-807.
 [^3]: Greene, D. J., Marek, S., Gordon, E. M., Siegel, J. S., Gratton, C., Laumann, T. O., ... & Dosenbach, N. U. (2020). Integrative and network-specific connectivity of the basal ganglia and thalamus defined in individuals. Neuron, 105(4), 742-758.
