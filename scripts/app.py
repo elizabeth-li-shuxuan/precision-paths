@@ -202,11 +202,14 @@ counts = filtered['age_bin'].value_counts().reindex(labels, fill_value=0)
 # ————————————————————— DISPLAY HISTOGRAM —————————————————————
 st.subheader("Age Distribution")
 chart = (
-    alt.Chart(counts).mark_bar(color=bin_color).encode(
-        x = alt.X('AgeBin:N', title = "Age"),
-        y = alt.Y("Count:Q", title = "Count")
+    alt.Chart(counts)
+    .mark_bar(color='#1f77b4')  # pick your hex or named color
+    .encode(
+        x=alt.X('AgeBin:N', title='Age Bin'),
+        y=alt.Y('Count:Q', title='Count')
     )
 )
+
 st.altair_chart(chart, use_container_width=True)
 
 
