@@ -220,8 +220,11 @@ st.altair_chart(chart, use_container_width=True)
 # ————————————————————— DISPLAY COUNTS BY DEMOGRAPHICS   —————————————————————
 st.subheader("Counts by Demographics")
 st.write(f"Total participants: {len(filtered)}")
-st.write(f"Age range: {filtered['Age_num'].min()}–{filtered['Age_num'].max()} years (Mean: {filtered['Age_num'].mean():.3f} ± {filtered['Age_num'].std():.3f} years)")
-st.write(f'Sex: {(filtered['Sex'] == 'Female').sum()} Female \t{(filtered['Sex'] == 'Male').sum()} Male \t{(~filtered['Sex'].isin(['Female','Male'])).sum()} Other/Unknown/Perfer not to say')
+st.write(
+    f"Age range: {filtered['Age_num'].min():.2f}–{filtered['Age_num'].max():.2f} years "
+    f"(Mean: {filtered['Age_num'].mean():.2f} ± {filtered['Age_num'].std():.2f} years)"
+)
+st.write(f'Sex: {(filtered['Sex'] == 'Female').sum()} Female, {(filtered['Sex'] == 'Male').sum()} Male, {(~filtered['Sex'].isin(['Female','Male'])).sum()} Other/Unknown/Perfer not to say')
 st.markdown("---")
 
 
