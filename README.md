@@ -7,7 +7,7 @@ Project Output [(presentation slides)](https://docs.google.com/presentation/d/1H
 2. [PFM Data Explorer](https://precision-paths-gptlrvaefbfjz2bcowz4yb.streamlit.app/): Web-app version of interactive figures of PFM study subjects
 
 <p align="center">
-  <img src="[path/to/your.gif](https://github.com/NeuroHackademy2025/precision-paths/blob/main/PFM_data_explorer_demo.gif)" alt="Demo" width="400"/>
+  <img src="https://github.com/NeuroHackademy2025/precision-paths/blob/main/PFM_data_explorer_demo.gif" alt="Demo" width="400"/>
 </p>
 
 ## Goals: 
