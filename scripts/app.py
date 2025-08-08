@@ -201,7 +201,7 @@ counts = filtered['age_bin'].value_counts().reindex(labels, fill_value=0)
 
 
 if not show_by_sex:
-    # ————————————————————— DISPLAY HISTOGRAM —————————————————————
+# ————————————————————— DISPLAY HISTOGRAM —————————————————————
     st.subheader("Age Distribution")
 
     # Convert to DataFrame
@@ -219,7 +219,7 @@ if not show_by_sex:
     st.altair_chart(chart, use_container_width=True)
 
 else:
-    # —————————————————— SIDE-BY-SIDE BAR PLOT ——————————————————
+# —————————————————— SIDE-BY-SIDE BAR PLOT ——————————————————
     st.subheader("Age Distribution by Sex")
 
     # pick groups: use selected pills, else what's in data, else a default list
@@ -270,11 +270,6 @@ else:
 
 
 
-
-
-
-
-
 # ————————————————————— DISPLAY COUNTS BY DEMOGRAPHICS   —————————————————————
 st.subheader("Counts by Demographics")
 st.write(f"Total participants: {len(filtered)}")
@@ -288,6 +283,7 @@ st.write(
     f"{(~filtered['Sex'].isin(['Female','Male'])).sum()} Other/Unknown/Prefer not to say"
 )
 st.markdown("---")
+
 
 
 # ————————————————————— DISPLAY DATA CSV —————————————————————
@@ -312,3 +308,9 @@ st.dataframe(display_df, use_container_width=True)
 
 
 
+# ————————————————————— CREDITS —————————————————————
+st.markdown("---")
+st.write("Contributors: Jonathan Ahern, Elizabeth Li, Sujin Park")
+st.markdown(
+    "[NeuroHackademy2025/precision-paths Repo](https://github.com/NeuroHackademy2025/precision-paths)"
+)
