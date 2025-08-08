@@ -265,7 +265,7 @@ side_by_side_plot = (
     alt.Chart(df_long)
     .mark_bar()
     .encode(
-        x=alt.X("AgeBin:N", sort=labels, title="Age Bin"),
+        x=alt.X("AgeBin:N", sort=labels, title="Age"),
         xOffset=alt.X("Sex:N"),
         y=alt.Y("Count:Q", title="Count"),
         color=alt.Color(
@@ -277,5 +277,6 @@ side_by_side_plot = (
     )
     .properties(height=360)
 )
+
 
 st.altair_chart(side_by_side_plot, use_container_width=True)
