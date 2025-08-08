@@ -220,12 +220,12 @@ st.altair_chart(chart, use_container_width=True)
 # ————————————————————— DISPLAY COUNTS BY DEMOGRAPHICS   —————————————————————
 st.subheader("Counts by Demographics")
 st.write(f"Total participants: {len(filtered)}")
-st.write(f"Age range: {filtered['Age_num'].min()}–{filtered['Age_num'].max()} years (Mean: {filtered['Age_num'].mean():.3f} ± {filtered['Age_num'].std():.3f} years)")
+#st.write(f"Age range: {filtered['Age_num'].min()}–{filtered['Age_num'].max()} years (Mean: {filtered['Age_num'].mean():.3f} ± {filtered['Age_num'].std():.3f} years)")
 
-# st.write(
-#     f"Age range: {round(filtered['Age_num'].min(), 2)}–{round(filtered['Age_num'].max(), 2)} years "
-#     f"(Mean: {round(filtered['Age_num'].mean(), 2)} ± {round(filtered['Age_num'].std(), 2)} years)"
-# )
+st.write(
+    f"Age range: {round(filtered['Age_num'].min(), 2)}–{round(filtered['Age_num'].max(), 2)} years "
+    f"(Mean: {round(filtered['Age_num'].mean(), 2)} ± {round(filtered['Age_num'].std(), 2)} years)"
+)
 st.write(f'Sex: {(filtered['Sex'] == 'Female').sum()} Female, {(filtered['Sex'] == 'Male').sum()} Male, {(~filtered['Sex'].isin(['Female','Male'])).sum()} Other/Unknown/Perfer not to say')
 st.markdown("---")
 
