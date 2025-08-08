@@ -29,7 +29,10 @@ Building a GitHub Repository for Precision (Functional Mapping) Datasets: [Liter
 In the spreadsheet, there are 3 sub-sheets. 
 1. The first sheet (1. PFM papers with available data) is a list of papers with accessible data (publicly available or available upon request) that we could find for literature review.
 2. The second sheet (2. Subject-level information) has more detailed information in a subject-level across these datasets. You can make a copy of the sheet and filter the subjects as you need. Descriptions are in the comments of the first row of a column. Papers with yellow highlight are papers that are not listed in Table 1 from [(Gratton et al, 2019)](https://pmc.ncbi.nlm.nih.gov/articles/PMC7203002/)[^5]. For visualization, we also provide an interactive app version of this table [PFM Data Explorer](https://precision-paths-gptlrvaefbfjz2bcowz4yb.streamlit.app/), please note that this only counts already publicly available PFM study subjects (uses precision-paths/data/data.csv).
-3. In the third sheet (3. Scan parameters), we summarized scan parameters of study that meets the following criteria: 1) 'TRUE' for 'Mostly resting state/ Enough Resting State' column in the 2nd spreadsheet, AND  2) 'Open' or 'Available upon request' for 'Open?' column in the 2nd spreadsheet. 
+3. In the third sheet (3. Scan parameters), we summarized scan parameters of study that meets the following criteria: 1) 'TRUE' for 'Mostly resting state/ Enough Resting State' column in the 2nd spreadsheet, AND  2) 'Open' or 'Available upon request' for 'Open?' column in the 2nd spreadsheet.
+
+### Suggest New Data to Add
+If you know of another open or available PFM dataset that we should add, please submit an [issue](https://github.com/NeuroHackademy2025/precision-paths/issues) with links to the publication and the data, and we will add it as soon as possible.
 
 ## Other useful resources
 - Lit Review Spreadsheet is an updated version of [(Gratton et al, 2019)](https://pmc.ncbi.nlm.nih.gov/articles/PMC7203002/)[^5]
