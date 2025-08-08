@@ -13,8 +13,8 @@ import altair as alt
 bin_color = "#739E3A"
 female_color = "#E69F00"
 male_color = "#009E73"
-unknown_sex_color = "#739E3A"
-other_sex_color = "gray"
+unknown_sex_color = "gray"
+other_sex_color = "#954BA2"
 
 
 
