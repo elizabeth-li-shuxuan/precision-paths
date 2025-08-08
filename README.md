@@ -2,11 +2,13 @@
 ## An Aggregated, Curated, & Itemized Collection of Open and Available Precision Functional Mapping (PFM) from Resting State fMRI Data
 Contributors: Jonathan Ahern, Elizabeth Li, Sujin Park
 
-
 Project Output [(presentation slides)](https://docs.google.com/presentation/d/1HJ0MWlfA3SRCS6izPqH9STxzEKUupiQYGsJzuQueHgU/edit?slide=id.g373766c5e58_0_0#slide=id.g373766c5e58_0_0): 
 1. [Literature Review Spreadsheet](https://docs.google.com/spreadsheets/d/1GAycMBfSNfVKg72nL3qlH0fvf_AokEXm1qFT6KMysBk/edit?usp=sharing): Collection of PFM studies with accessible datasets
 2. [PFM Data Explorer](https://precision-paths-gptlrvaefbfjz2bcowz4yb.streamlit.app/): Web-app version of interactive figures of PFM study subjects
 
+<p align="center">
+  <img src="https://github.com/NeuroHackademy2025/precision-paths/blob/main/PFM_data_explorer_demo.gif" alt="Demo" width="600"/>
+</p>
 
 ## Goals: 
 - Summary and Graphical Figure of released PFM datasets
@@ -29,7 +31,7 @@ Building a GitHub Repository for Precision (Functional Mapping) Datasets: [Liter
 In the spreadsheet, there are 3 sub-sheets. 
 1. The first sheet (1. PFM papers with available data) is a list of papers with accessible data (publicly available or available upon request) that we could find for literature review.
 2. The second sheet (2. Subject-level information) has more detailed information in a subject-level across these datasets. You can make a copy of the sheet and filter the subjects as you need. Descriptions are in the comments of the first row of a column. Papers with yellow highlight are papers that are not listed in Table 1 from [(Gratton et al, 2019)](https://pmc.ncbi.nlm.nih.gov/articles/PMC7203002/)[^5]. For visualization, we also provide an interactive app version of this table [PFM Data Explorer](https://precision-paths-gptlrvaefbfjz2bcowz4yb.streamlit.app/), please note that this only counts already publicly available PFM study subjects (uses precision-paths/data/data.csv).
-3. In the third sheet (3. Scan parameters), we summarized scan parameters of study that meets the following criteria: 1) 'TRUE' for 'Mostly resting state/ Enough Resting State' column in the 2nd spreadsheet, AND  2) 'Open' or 'Available upon request' for 'Open?' column in the 2nd spreadsheet.
+3. In the third sheet (3. Scan parameters), we summarized scan parameters of study that meets the following criteria: 1) 'TRUE' for 'Mostly resting state/ Enough Resting State' column in the 2nd spreadsheet, AND  2) 'Open' for 'Open?' column in the 2nd spreadsheet or those with datasets available upon request.
 
 ### Suggest New Data to Add
 If you know of another open or available PFM dataset that we should add, please submit an [issue](https://github.com/NeuroHackademy2025/precision-paths/issues) with links to the publication and the data, and we will add it as soon as possible.
