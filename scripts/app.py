@@ -30,7 +30,6 @@ def empty_cell_to_unknown(s: pd.Series) -> pd.Series:
 # ————————————————————— WEBPAGE TITLE —————————————————————
 title = "PFM Data Explorer"
 st.set_page_config(page_title=title)  # browser tab title (optional)
-
 st.markdown(
     f"<h1 style='text-align:center;'>{escape(title)}</h1>",
     unsafe_allow_html=True
@@ -310,7 +309,11 @@ st.dataframe(display_df, use_container_width=True)
 
 # ————————————————————— CREDITS —————————————————————
 st.markdown("---")
-st.write("Contributors: Jonathan Ahern, Elizabeth Li, Sujin Park")
-st.markdown(
-    "[NeuroHackademy2025/precision-paths Repo](https://github.com/NeuroHackademy2025/precision-paths)"
-)
+st.markdown("""
+<div style='text-align:center'>
+  <p><strong>Contributors:</strong> Jonathan Ahern, Elizabeth Li, Sujin Park</p>
+  <p><a href="https://github.com/NeuroHackademy2025/precision-paths" target="_blank">
+     NeuroHackademy2025/precision-paths Repo
+  </a></p>
+</div>
+""", unsafe_allow_html=True)
