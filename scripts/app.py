@@ -311,9 +311,9 @@ st.dataframe(display_df, use_container_width=True)
 st.markdown("---")
 st.markdown("""
 <div style='text-align:center'>
-  <p><strong>Contributors:</strong> Jonathan Ahern, Elizabeth Li, Sujin Park</p>
+  <p>Contributors: Jonathan Ahern, Elizabeth Li, and Sujin Park</p>
   <p><a href="https://github.com/NeuroHackademy2025/precision-paths" target="_blank">
-     NeuroHackademy2025/precision-paths Repo
+     Github Repo: NeuroHackademy2025/precision-paths
   </a></p>
 </div>
 """, unsafe_allow_html=True)
