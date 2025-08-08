@@ -10,7 +10,7 @@ from pathlib import Path
 from html import escape
 import altair as alt
 
-# bin_color = 
+bin_color = "#739E3A"
 female_color = "#E69F00"
 male_color = "#009E73"
 unknown_sex_color = "#739E3A"
@@ -200,8 +200,15 @@ counts = filtered['age_bin'].value_counts().reindex(labels, fill_value=0)
 
 
 # ————————————————————— DISPLAY HISTOGRAM —————————————————————
-st.subheader("Counts per Age Bin")
-st.bar_chart(counts)
+st.subheader("Age Distribution")
+chart = (
+    alt.Chart(counts).mark_bar(color=bin_color).encode(
+        x = alt.X('AgeBin:N', title = "Age"),
+        y = alt.Y("Count:Q", title = "Count")
+    )
+)
+st.altair_chart(chart, use_container_width=True)
+
 
 # ————————————————————— DISPLAY COUNTS BY DEMOGRAPHICS   —————————————————————
 st.subheader("Counts by Demographics")
@@ -233,7 +240,7 @@ st.dataframe(display_df, use_container_width=True)
 
 
 # —————————————————— SIDE-BY-SIDE BAR PLOT ——————————————————
-st.subheader("Age Distribution by Sex (overlapped)")
+st.subheader("Age Distribution by Sex")
 
 # pick groups: use selected pills, else what's in data, else a default list
 groups = sex_filters or filtered["Sex"].dropna().unique().tolist() or ["Female", "Male", "Other", "Unknown"]
@@ -275,7 +282,6 @@ side_by_side_plot = (
         ),
         tooltip=["Sex:N", "AgeBin:N", "Count:Q"],
     )
-    .properties(height=360)
 )
 
 
