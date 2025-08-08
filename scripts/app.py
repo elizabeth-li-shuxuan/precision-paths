@@ -79,7 +79,7 @@ df = load_data("data/data.csv")
 # ————————————————————— SIDEBAR —————————————————————
 st.sidebar.header("Demographics filter")
 
-show_by_sex = st.sidebar.checkbox("Distribution by Sex", value=False)
+show_by_sex = st.sidebar.checkbox("View distribution by sex", value=False)
 
 # 1. age range and bin size
 age_min  = int(df['Age_num'].min(skipna=True))
