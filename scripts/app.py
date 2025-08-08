@@ -71,7 +71,8 @@ def load_data(path):
     df['StudyYear_num'] = df['Study Year'].apply(parse_year)
     return df
 
-df = load_data("data/data.csv")
+RAW_CSV = "https://raw.githubusercontent.com/NeuroHackademy2025/precision-paths/main/data/data.csv"
+df = load_data(RAW_CSV)
 
 
 
