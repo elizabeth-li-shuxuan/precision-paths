@@ -141,7 +141,7 @@ _ds_all = empty_cell_to_unknown(df[dataset_col])
 dataset_options = sorted(_ds_all.unique().tolist())
 
 dataset_selected = st.sidebar.multiselect(
-    "",
+    "Dataset",
     options=dataset_options,
     default=dataset_options,
     label_visibility="collapsed",   # no label & no reserved space
@@ -201,9 +201,14 @@ counts = filtered['age_bin'].value_counts().reindex(labels, fill_value=0)
 
 # ————————————————————— DISPLAY HISTOGRAM —————————————————————
 st.subheader("Age Distribution")
+
+# Convert to DataFrame
+counts_df = counts.reset_index()
+counts_df.columns = ["AgeBin", "Count"]
+
 chart = (
-    alt.Chart(counts)
-    .mark_bar(color='#1f77b4')  # pick your hex or named color
+    alt.Chart(counts_df)
+    .mark_bar(color=bin_color)  # custom single color
     .encode(
         x=alt.X('AgeBin:N', title='Age Bin'),
         y=alt.Y('Count:Q', title='Count')
@@ -211,7 +216,6 @@ chart = (
 )
 
 st.altair_chart(chart, use_container_width=True)
-
 
 # ————————————————————— DISPLAY COUNTS BY DEMOGRAPHICS   —————————————————————
 st.subheader("Counts by Demographics")
