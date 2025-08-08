@@ -1,4 +1,4 @@
-Study,Mostly resting state/ Enough Resting State,Study Year,Year of Recruitment,Age,Birth Year,Sex,Handeness,Native English Speaker?,Handedness Score,Open?,Diagnoses,Intervention,Race Ethnicity or Ancestry,Crosslisted,Scan Time ,Clean Scan Time (<0.2 FD),Average FD,Height (inches),Weight (lbs),Last Degree Completed,Months since last psychedleic Exposure,Education (years)
+Dataset,Mostly resting state/ Enough Resting State,Study Year,Year of Recruitment,Age,Birth Year,Sex,Handedness,Native English Speaker?,Handedness Score,Open?,Diagnoses,Intervention,Demographics,Crosslisted,Scan Time ,Clean Scan Time (<0.2 FD),Average FD,Height (inches),Weight (lbs),Last Degree Completed,Months since last psychedleic Exposure,Education (years)
 MyConnectome,TRUE,2015,,46,,Male,Right,,,Open,"plaque psoriasis, history of anxiety disorder,",,Caucasian ,,,,,,,,,
 Midnight Scan Club,TRUE,2017,,34,,Male,Right,,,Open,healthy,,,,,,,,,,,22
 Midnight Scan Club,TRUE,2017,,34,,Male,Right,,,Open,healthy,,,sub-cast1 (Nico),,,,,,,,28

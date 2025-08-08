@@ -1,2 +1,5 @@
 .DS_Store
+**/.DS_Store
 venv/
+code_placeholder.py
+**/code_placeholder.py
