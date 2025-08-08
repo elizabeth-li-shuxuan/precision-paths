@@ -1,8 +1,9 @@
 # **Precision Paths**
 ## An Aggregated, Curated, & Itemized Collection of Open and Available Precision Functional Mapping (PFM) from Resting State fMRI Data
-This repository is a project for Neurohackademy 2025 [(presentation slides)](https://docs.google.com/presentation/d/1HJ0MWlfA3SRCS6izPqH9STxzEKUupiQYGsJzuQueHgU/edit?slide=id.g373766c5e58_0_0#slide=id.g373766c5e58_0_0) 
+Contributors: Jonathan Ahern, Elizabeth Li, Sujin Park
 
-Project Output: 
+
+Project Output [(presentation slides)](https://docs.google.com/presentation/d/1HJ0MWlfA3SRCS6izPqH9STxzEKUupiQYGsJzuQueHgU/edit?slide=id.g373766c5e58_0_0#slide=id.g373766c5e58_0_0): 
 1. [Literature Review Spreadsheet](https://docs.google.com/spreadsheets/d/1GAycMBfSNfVKg72nL3qlH0fvf_AokEXm1qFT6KMysBk/edit?usp=sharing): Collection of PFM studies with accessible datasets
 2. [PFM Data Explorer](https://precision-paths-gptlrvaefbfjz2bcowz4yb.streamlit.app/): Web-app version of interactive figures of PFM study subjects
 
@@ -33,6 +34,9 @@ In the spreadsheet, there are 3 sub-sheets.
 ## Other useful resources
 - Lit Review Spreadsheet is an updated version of [(Gratton et al, 2019)](https://pmc.ncbi.nlm.nih.gov/articles/PMC7203002/)[^5]
 - Github Repository for other brain-imaging modality datasets: [here](https://link.springer.com/article/10.1007/s11682-022-00724-8)
+
+## Note
+This repository is a project for Neurohackademy 2025.  
 
 ## Works Cited
 [^1]: Demeter, D.V., Greene, D.J. The promise of precision functional mapping for neuroimaging in psychiatry. Neuropsychopharmacol. 50, 16–28 (2025). https://doi.org/10.1038/s41386-024-01941-z
