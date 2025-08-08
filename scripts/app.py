@@ -211,7 +211,7 @@ if not show_by_sex:
         alt.Chart(counts_df)
         .mark_bar(color=bin_color)  # custom single color
         .encode(
-            x=alt.X('AgeBin:N', title='Age Bin'),
+            x=alt.X('AgeBin:N', title='Age'),
             y=alt.Y('Count:Q', title='Count')
         )
     )
