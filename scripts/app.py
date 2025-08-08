@@ -200,24 +200,80 @@ counts = filtered['age_bin'].value_counts().reindex(labels, fill_value=0)
 
 
 
+if not show_by_sex:
+    # ————————————————————— DISPLAY HISTOGRAM —————————————————————
+    st.subheader("Age Distribution")
 
-# ————————————————————— DISPLAY HISTOGRAM —————————————————————
-st.subheader("Age Distribution")
+    # Convert to DataFrame
+    counts_df = counts.rename_axis("AgeBin").reset_index(name="Count")
 
-# Convert to DataFrame
-counts_df = counts.reset_index()
-counts_df.columns = ["AgeBin", "Count"]
-
-chart = (
-    alt.Chart(counts_df)
-    .mark_bar(color=bin_color)  # custom single color
-    .encode(
-        x=alt.X('AgeBin:N', title='Age Bin'),
-        y=alt.Y('Count:Q', title='Count')
+    chart = (
+        alt.Chart(counts_df)
+        .mark_bar(color=bin_color)  # custom single color
+        .encode(
+            x=alt.X('AgeBin:N', title='Age Bin'),
+            y=alt.Y('Count:Q', title='Count')
+        )
     )
-)
 
-st.altair_chart(chart, use_container_width=True)
+    st.altair_chart(chart, use_container_width=True)
+
+else:
+    # —————————————————— SIDE-BY-SIDE BAR PLOT ——————————————————
+    st.subheader("Age Distribution by Sex")
+
+    # pick groups: use selected pills, else what's in data, else a default list
+    groups = sex_filters or filtered["Sex"].dropna().unique().tolist() or ["Female", "Male", "Other", "Unknown"]
+
+    #Start with zeros for every bin x group
+    grouped_counts = pd.DataFrame(0, index=labels, columns = groups)
+
+    #fill in real counts where present
+    for g in groups:
+        g_counts = (
+            filtered.loc[filtered["Sex"] == g, "age_bin"]
+                .value_counts()
+                .reindex(labels, fill_value=0)
+        )
+        grouped_counts[g] = g_counts.values
+
+    #convert data from wide format to long format for Altair (visualization library)
+    df_long = (
+        grouped_counts.reset_index()
+        .melt(id_vars="index", var_name="Sex", value_name="Count")
+        .rename(columns={"index": "AgeBin"})
+    )
+
+    #female red, male blue
+    color_domain = ["Female", "Male", "Other", "Unknown"]
+    color_range  = [female_color, male_color, other_sex_color, unknown_sex_color]
+
+    side_by_side_plot = (
+        alt.Chart(df_long)
+        .mark_bar()
+        .encode(
+            x=alt.X("AgeBin:N", sort=labels, title="Age"),
+            xOffset=alt.X("Sex:N"),
+            y=alt.Y("Count:Q", title="Count"),
+            color=alt.Color(
+                "Sex:N",
+                scale=alt.Scale(domain=color_domain, range=color_range),
+                legend=alt.Legend(title="Sex"),
+            ),
+            tooltip=["Sex:N", "AgeBin:N", "Count:Q"],
+        )
+    )
+
+
+    st.altair_chart(side_by_side_plot, use_container_width=True)
+
+
+
+
+
+
+
+
 
 # ————————————————————— DISPLAY COUNTS BY DEMOGRAPHICS   —————————————————————
 st.subheader("Counts by Demographics")
@@ -256,50 +312,3 @@ st.dataframe(display_df, use_container_width=True)
 
 
 
-# —————————————————— SIDE-BY-SIDE BAR PLOT ——————————————————
-st.subheader("Age Distribution by Sex")
-
-# pick groups: use selected pills, else what's in data, else a default list
-groups = sex_filters or filtered["Sex"].dropna().unique().tolist() or ["Female", "Male", "Other", "Unknown"]
-
-#Start with zeros for every bin x group
-grouped_counts = pd.DataFrame(0, index=labels, columns = groups)
-
-#fill in real counts where present
-for g in groups:
-    g_counts = (
-        filtered.loc[filtered["Sex"] == g, "age_bin"]
-            .value_counts()
-            .reindex(labels, fill_value=0)
-    )
-    grouped_counts[g] = g_counts.values
-
-#convert data from wide format to long format for Altair (visualization library)
-df_long = (
-    grouped_counts.reset_index()
-    .melt(id_vars="index", var_name="Sex", value_name="Count")
-    .rename(columns={"index": "AgeBin"})
-)
-
-#female red, male blue
-color_domain = ["Female", "Male", "Other", "Unknown"]
-color_range  = [female_color, male_color, other_sex_color, unknown_sex_color]
-
-side_by_side_plot = (
-    alt.Chart(df_long)
-    .mark_bar()
-    .encode(
-        x=alt.X("AgeBin:N", sort=labels, title="Age"),
-        xOffset=alt.X("Sex:N"),
-        y=alt.Y("Count:Q", title="Count"),
-        color=alt.Color(
-            "Sex:N",
-            scale=alt.Scale(domain=color_domain, range=color_range),
-            legend=alt.Legend(title="Sex"),
-        ),
-        tooltip=["Sex:N", "AgeBin:N", "Count:Q"],
-    )
-)
-
-
-st.altair_chart(side_by_side_plot, use_container_width=True)
