@@ -2,11 +2,10 @@
 ## An Aggregated, Curated, & Itemized Collection of Open and Available Precision Functional Mapping (PFM) from Resting State fMRI Data
 Contributors: Jonathan Ahern, Elizabeth Li, Sujin Park
 
-[](https://github.com/NeuroHackademy2025/precision-paths/blob/main/pfm_data_explorer_demo.gif)
-
 Project Output [(presentation slides)](https://docs.google.com/presentation/d/1HJ0MWlfA3SRCS6izPqH9STxzEKUupiQYGsJzuQueHgU/edit?slide=id.g373766c5e58_0_0#slide=id.g373766c5e58_0_0): 
 1. [Literature Review Spreadsheet](https://docs.google.com/spreadsheets/d/1GAycMBfSNfVKg72nL3qlH0fvf_AokEXm1qFT6KMysBk/edit?usp=sharing): Collection of PFM studies with accessible datasets
 2. [PFM Data Explorer](https://precision-paths-gptlrvaefbfjz2bcowz4yb.streamlit.app/): Web-app version of interactive figures of PFM study subjects
+![Demo](https://github.com/NeuroHackademy2025/precision-paths/blob/main/pfm_data_explorer_demo.gif)
 
 
 ## Goals: 
